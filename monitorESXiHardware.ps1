@@ -7,13 +7,14 @@
     Create user on ESXi with Read-Only rights to access the host and enter them into Husername and Hpassword (do not use root account)
     Enter hostname(s) or IP adress(es) in $VMHosts that you want to query 
     After executing the script, you will get alerts setup in Syncro for any warnings or failures with details about component and status
-    Optional CSV file with whole report can be uploaded to the computer running the script
+    Optional CSV file with complete log can be uploaded to the computer's attachment section running the script in Syncro
     Initial RunTime for script should be set to at least 10 min if you don't have VMware.PowerCLI installed
 .EXAMPLE
     Copy script to SyncroRMM and run it on schedule 
 .NOTES
-    Author: Mariusz Sztanga
-    Date:   December 30, 2021   
+    Author:     Mariusz Sztanga
+    Date:       December 30, 2021   
+    Version:    1.0.3
 #>
 
 # Syncro Script Variables 
@@ -44,7 +45,7 @@ foreach($VMHost in $VMHostsArray) {
        Connect-VIServer -Server $VMHost -Protocol https -User $Husername -Password $Hpassword -ErrorAction Stop | Out-Null
     } catch [Exception]{
         $exception = $_.Exception
-        Rmm-Alert -Category 'ESXi Alert - Hardware' -Body $exception.message | Out-Null
+        Rmm-Alert -Category 'VMware ESXi Alert - Hardware' -Body $exception.message | Out-Null
         Write-Host $($exception.message) -ForegroundColor Red
     }
     if ($null -ne $global:DefaultVIServer) {
@@ -62,7 +63,7 @@ foreach($VMHost in $VMHostsArray) {
                 $OutArr += $object
                 if ($sensor.HealthState.Key -ne 'green') {
                     $alertBody = "$($sensor.Name) has issues - Reading $($sensor.CurrentReading)"
-                    Rmm-Alert -Category 'ESXi Alert - Hardware' -Body $alertBody | Out-Null
+                    Rmm-Alert -Category 'VMware ESXi Alert - Hardware' -Body $alertBody | Out-Null
                     Write-Host $alertBody -ForegroundColor Red
                 }
             }
