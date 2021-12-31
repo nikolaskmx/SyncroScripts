@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-    Thuis script will sync contacts from Office365 to Syncro
+    This script will sync contacts from Office365 to Syncro
 .DESCRIPTION
     It connects to Microsoft Azure and compares data to Syncro Contacts based on Comapany names. Contacts not in Syncro will be created
     Existing contacts will be compared to Syncro entries. If field exists in Office365 - it will be replicated to Syncro
@@ -33,9 +33,9 @@ if (Test-Path "$PSScriptRoot\ps_header.ps1") {
 . "$PSScriptRoot\ps_header.ps1"
 } else {
     Write-Host  "Missing ps_header.ps1 with secret hashes" -ForegroundColor Red
-    $runSetup = Read-Host -Prompt "Do you want to run Config-CreateHeader.ps1 (Y/N)?"
+    $runSetup = Read-Host -Prompt "Do you want to run ps_header-Create.ps1 (Y/N)?"
     if ($runSetup -eq 'Y') {
-        $CommandLine = '-File "'+ $PSScriptRoot+ '\Config-CreateHeader.ps1"'
+        $CommandLine = '-File "'+ $PSScriptRoot+ '\ps_header-Create.ps1"'
         Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine -Wait
     }
     exit
