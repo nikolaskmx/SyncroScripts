@@ -14,5 +14,8 @@ In the meantime, if you need to send message to users when running scripts as SY
 Durring our onboarding process we create local admin user with random password containing our special prefix and X number of random words from dictionary. 
 This script is set to weekly reset them and upload new password back to Syncro. 
 
+## Monitor ESXi Hardware events
+Script to check and alert about any hardware issues in ESXi/VM Center. 
+
 ### Contributions
 Feel free to send pull requests or fill out issues when you encounter them. I'm also completely open to adding maintainers/contributors and working together! :)
